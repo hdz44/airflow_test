@@ -51,7 +51,7 @@ create_sales_table = PostgresOperator(
     sql="""
     CREATE TABLE IF NOT EXISTS daily_sales (
         id SERIAL PRIMARY KEY,
-        product VARCHAR(255),
+        product VARCHAR(245),
         quantity_sold INT,
         sales_date DATE
     );
