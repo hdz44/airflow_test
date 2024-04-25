@@ -1,4 +1,4 @@
-name: Trigger Airflow DAG on Dev Branch
+name: Trigger Airflow DAG on Branch
 
 # Trigger the workflow when there's a push to the "main" branch
 on:
