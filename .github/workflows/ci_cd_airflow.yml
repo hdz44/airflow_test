@@ -30,9 +30,9 @@ jobs:
           # Use GitHub Secrets to secure sensitive information
           curl -G -X GET "${{secrets.AIRFLOW_API_URL_RUN_DAG}}" \
           --data-urlencode "dag_name=sales_data_extraction" \
-          --data-urlencode "username=airflow" \
-          --data-urlencode "password=airflow" \
-          -H "x-api-key: N7wmz1I2tx6WvkZzyuNcs4E30lhidqyI2mF5DmKP"
+          --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
+          --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
+          -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}"
           
       
    
