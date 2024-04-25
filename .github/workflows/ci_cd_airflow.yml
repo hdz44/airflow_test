@@ -28,10 +28,11 @@ jobs:
         run: |
           # Make an HTTP POST request to trigger the DAG in Airflow
           # Use GitHub Secrets to secure sensitive information
-          curl -X POST "${{ secrets.AIRFLOW_API_URL }}/api/v1/dags/scalable_data_transformation/dagRuns" \
-          -H "Content-Type: application/json" \
-          -H "Authorization: Bearer ${{ secrets.AIRFLOW_AUTH_TOKEN }}" \
-          -d '{"conf": {}}'  # Modify as needed
+          curl -G -X GET "${{secrets.AIRFLOW_API_URL_RUN_DAG}}" \
+          --data-urlencode "dag_name=${{secrets.AIRFLOW_API_URL_RUN_DAG}}" \
+          --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
+          --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
+          -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}"
       
       # Step 4: Check the DAG status to determine success or failure
       - name: Check DAG Status
