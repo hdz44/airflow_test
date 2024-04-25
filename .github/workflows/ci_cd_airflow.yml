@@ -45,16 +45,35 @@ jobs:
       # Step 4: Trigger the Airflow DAG
       - name: Check Airflow DAG status
         run: |
-          # Make a request to check the DAG status in Airflow
-          
-          dag_status=$(curl -G -X GET "${{secrets.AIRFLOW_API_URL_CHECK_DAG_STATUS}}" \
+          # Initialize the status variable
+          dag_status=""
+      
+          # Loop until the dag_status is 'success'
+          until [[ "$dag_status" == "success" ]]; do
+            # Pause between checks to avoid rate limiting or excessive load
+            echo "Waiting for DAG to complete..."
+            sleep 60  # Wait for 60 seconds before checking again
+      
+            # Make the API request and update dag_status
+            dag_status=$(curl -G -X GET "${{ secrets.AIRFLOW_API_URL_CHECK_DAG_STATUS }}" \
               --data-urlencode "dag_name=${{ env.dag_id }}" \
               --data-urlencode "dag_run_id=${{ env.dag_run_id }}" \
-              --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
-              --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
-              -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}" | jq -r '.dag_status')
-              
-          echo $dag_status
+              --data-urlencode "username=${{ secrets.AIRFLOW_USERNAME }}" \
+              --data-urlencode "password=${{ secrets.AIRFLOW_PASSWORD }}" \
+              -H "x-api-key: ${{ secrets.AIRFLOW_TOKEN }}" | jq -r '.dag_status')
+            
+            # Log current status
+            echo "Current DAG status: $dag_status"
+            if [ "$dag_status" = "success" ]; then
+              echo "DAG succeeded"
+            else
+              echo "DAG failed"
+              exit 1  # Exit with non-zero status to indicate failure
+            
+          done
+      
+          # Final status message
+          echo "DAG has successfully completed: $dag_status"
 
 
           
