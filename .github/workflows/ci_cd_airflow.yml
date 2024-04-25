@@ -38,9 +38,6 @@ jobs:
           dag_id=$(echo $response | jq -r '.dag_id')
           dag_run_id=$(echo $response | jq -r '.dag_run_id')
 
-          echo "DAG ID: $dag_id"
-          echo "DAG Run ID: $dag_run_id"
-
           #sleep 1 sec for api limit
           
 
@@ -49,6 +46,8 @@ jobs:
       - name: Check Airflow DAG status
         run: |
           # Make a request to check the DAG status in Airflow
+          echo "DAG ID: $dag_id"
+          echo "DAG Run ID: $dag_run_id"
           
           response=$(curl -G -X GET "${{secrets.AIRFLOW_API_URL_CHECK_DAG_STATUS}}" \
               --data-urlencode "dag_name=$dag_id" \
