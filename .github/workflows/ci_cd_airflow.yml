@@ -4,7 +4,7 @@ name: Trigger Airflow DAG on Dev Branch
 on:
   push:
     branches:
-      - dev  # Workflow is triggered on a push to the "dev" branch
+      - main  # Workflow is triggered on a push to the "dev" branch
 
 # Define jobs in the workflow
 jobs:
