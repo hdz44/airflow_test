@@ -1,0 +1,50 @@
+name: Trigger Airflow DAG on Dev Branch
+
+# Trigger the workflow when there's a push to the "dev" branch
+on:
+  push:
+    branches:
+      - dev  # Workflow is triggered on a push to the "dev" branch
+
+# Define jobs in the workflow
+jobs:
+  trigger_dag:
+    runs-on: ubuntu-latest  # Define the base operating system
+    
+    # Define the steps for the job
+    steps:
+      # Step 1: Check out the repository codebase
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Step 2: Validate the DAG structure or other checks
+      - name: Validate DAG
+        run: |
+          # Perform DAG validation, e.g., syntax check or other checks
+          echo "Validating the DAG..."
+
+      # Step 3: Trigger the Airflow DAG
+      - name: Trigger Airflow DAG
+        run: |
+          # Make an HTTP POST request to trigger the DAG in Airflow
+          # Use GitHub Secrets to secure sensitive information
+          curl -X POST "${{ secrets.AIRFLOW_API_URL }}/api/v1/dags/scalable_data_transformation/dagRuns" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.AIRFLOW_AUTH_TOKEN }}" \
+          -d '{"conf": {}}'  # Modify as needed
+      
+      # Step 4: Check the DAG status to determine success or failure
+      - name: Check DAG Status
+        run: |
+          # Retrieve the most recent DAG run ID
+          DAG_RUN_ID=$(curl -s "${{ secrets.AIRFLOW_API_URL }}/api/v1/dags/scalable_data_transformation/dagRuns" | jq -r '.dag_runs[-1].dag_run_id')
+
+          # Check the status of the DAG
+          DAG_STATUS=$(curl -s "${{ secrets.AIRFLOW_API_URL }}/api/v1/dags/scalable_data_transformation/dagRuns/$DAG_RUN_ID" | jq -r '.state')
+
+          # Determine if the DAG succeeded or failed
+          if [ "$DAG_STATUS" = "success" ]; then
+            echo "DAG succeeded"
+          else
+            echo "DAG failed"
+            exit 1  # Exit with non-zero status to indicate failure
