@@ -38,20 +38,18 @@ jobs:
           dag_id=$(echo $response | jq -r '.dag_id')
           dag_run_id=$(echo $response | jq -r '.dag_run_id')
 
-          #sleep 1 sec for api limit
-          
+          echo "dag_id=$dag_id" >> $GITHUB_ENV
+          echo "dag_run_id=$dag_run_id" >> $GITHUB_ENV
 
 
       # Step 4: Trigger the Airflow DAG
       - name: Check Airflow DAG status
         run: |
           # Make a request to check the DAG status in Airflow
-          echo "DAG ID: $dag_id"
-          echo "DAG Run ID: $dag_run_id"
           
           response=$(curl -G -X GET "${{secrets.AIRFLOW_API_URL_CHECK_DAG_STATUS}}" \
-              --data-urlencode "dag_name=$dag_id" \
-              --data-urlencode "dag_run_id=$dag_run_id" \
+              --data-urlencode "dag_name=${{ env.dag_id }}" \
+              --data-urlencode "dag_run_id=${{ env.dag_run_id }}" \
               --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
               --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
               -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}" )
