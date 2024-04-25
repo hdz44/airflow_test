@@ -42,7 +42,7 @@ jobs:
           echo "DAG Run ID: $dag_run_id"
 
           #sleep 1 sec for api limit
-          sleep 1 
+          
 
 
       # Step 4: Trigger the Airflow DAG
