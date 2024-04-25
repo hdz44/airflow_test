@@ -28,20 +28,35 @@ jobs:
         run: |
           # Make a request to trigger the DAG in Airflow
           # Use GitHub Secrets to secure sensitive information
-          #!/bin/bash
 
-          
           response=$(curl -G -X GET "${{secrets.AIRFLOW_API_URL_RUN_DAG}}" \
               --data-urlencode "dag_name=sales_data_extraction" \
               --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
               --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
               -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}" )
 
-          
           dag_id=$(echo $response | jq -r '.dag_id')
           dag_run_id=$(echo $response | jq -r '.dag_run_id')
 
-          
+          echo "DAG ID: $dag_id"
+          echo "DAG Run ID: $dag_run_id"
+
+
+      # Step 4: Trigger the Airflow DAG
+      - name: Check Airflow DAG status
+        run: |
+          # Make a request to check the DAG status in Airflow
+
+          response=$(curl -G -X GET "${{secrets.AIRFLOW_API_URL_CHECK_DAG_STATUS}}" \
+              --data-urlencode "dag_name=$dag_id" \
+              --data-urlencode "dag_run_id=$dag_run_id" \
+              --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
+              --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
+              -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}" )
+
+          dag_id=$(echo $response | jq -r '.dag_id')
+          dag_run_id=$(echo $response | jq -r '.dag_run_id')
+
           echo "DAG ID: $dag_id"
           echo "DAG Run ID: $dag_run_id"
 
