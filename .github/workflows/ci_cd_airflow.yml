@@ -69,7 +69,7 @@ jobs:
             else
               echo "DAG failed"
               exit 1  # Exit with non-zero status to indicate failure
-            
+            fi
           done
       
           # Final status message
