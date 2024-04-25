@@ -28,11 +28,23 @@ jobs:
         run: |
           # Make a request to trigger the DAG in Airflow
           # Use GitHub Secrets to secure sensitive information
-          curl -G -X GET "${{secrets.AIRFLOW_API_URL_RUN_DAG}}" \
-          --data-urlencode "dag_name=sales_data_extraction" \
-          --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
-          --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
-          -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}"
+          #!/bin/bash
+
+          
+          response=$(curl -G -X GET "${{secrets.AIRFLOW_API_URL_RUN_DAG}}" \
+              --data-urlencode "dag_name=sales_data_extraction" \
+              --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
+              --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
+              -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}" )
+
+          
+          dag_id=$(echo $response | jq -r '.dag_id')
+          dag_run_id=$(echo $response | jq -r '.dag_run_id')
+
+          
+          echo "DAG ID: $dag_id"
+          echo "DAG Run ID: $dag_run_id"
+
           
       
    
