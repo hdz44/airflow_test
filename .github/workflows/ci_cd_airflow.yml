@@ -52,7 +52,7 @@ jobs:
               --data-urlencode "dag_run_id=${{ env.dag_run_id }}" \
               --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
               --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
-              -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}" | jq -r '.state') 
+              -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}")
               
           echo $dag_status
 
