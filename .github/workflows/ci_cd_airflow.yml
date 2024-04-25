@@ -26,13 +26,13 @@ jobs:
       # Step 3: Trigger the Airflow DAG
       - name: Trigger Airflow DAG
         run: |
-          # Make an HTTP POST request to trigger the DAG in Airflow
+          # Make a request to trigger the DAG in Airflow
           # Use GitHub Secrets to secure sensitive information
-          curl -G -X GET "${{secrets.AIRFLOW_API_URL_RUN_DAG}}" \
-          -H "x-api-key:${{secrets.AIRFLOW_TOKEN}}"
+          curl -G -X GET "https://4eum8q7emc.execute-api.eu-central-1.amazonaws.com/v1/airflow/run_dag" \
           --data-urlencode "dag_name=sales_data_extraction" \
-          --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
-          --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" 
+          --data-urlencode "username=airflow" \
+          --data-urlencode "password=airflow" \
+          -H "x-api-key: N7wmz1I2tx6WvkZzyuNcs4E30lhidqyI2mF5DmKP"
           
       
    
