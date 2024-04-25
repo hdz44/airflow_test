@@ -47,13 +47,14 @@ jobs:
         run: |
           # Make a request to check the DAG status in Airflow
           
-          response=$(curl -G -X GET "${{secrets.AIRFLOW_API_URL_CHECK_DAG_STATUS}}" \
+          dag_status=$(curl -G -X GET "${{secrets.AIRFLOW_API_URL_CHECK_DAG_STATUS}}" \
               --data-urlencode "dag_name=${{ env.dag_id }}" \
               --data-urlencode "dag_run_id=${{ env.dag_run_id }}" \
               --data-urlencode "username=${{secrets.AIRFLOW_USERNAME}}" \
               --data-urlencode "password=${{secrets.AIRFLOW_PASSWORD}}" \
-              -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}" )
-          echo $response
+              -H "x-api-key: ${{secrets.AIRFLOW_TOKEN}}" ) | jq -r '.state'
+              
+          echo $dag_status
 
 
           
