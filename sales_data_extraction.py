@@ -12,9 +12,9 @@ default_args = {
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 2,
-    'retry_delay': timedelta(minutes=1),
+    'retry_delay': timedelta(minutes=3),
 }
-
+"""testing"""
 dag = DAG(
     'sales_data_extraction',
     default_args=default_args,
