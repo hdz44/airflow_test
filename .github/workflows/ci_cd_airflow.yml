@@ -2,7 +2,7 @@ name: Trigger Airflow DAG on Branch
 
 # Trigger the workflow when there's a push to the "main" branch
 on:
-  push:
+  pull_request:
     branches:
       - main  # Workflow is triggered on a push to the "main" branch
 
