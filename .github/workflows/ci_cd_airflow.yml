@@ -26,6 +26,9 @@ jobs:
       # Step 3: Trigger the Airflow DAG
       - name: Trigger Airflow DAG
         run: |
+          #w8 20 sec to let git-sync fetch changes
+          sleep 20
+          
           # Make a request to trigger the DAG in Airflow
           # Use GitHub Secrets to secure sensitive information
 
