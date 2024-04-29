@@ -19,7 +19,7 @@ dag = DAG(
     'sales_data_extraction',
     default_args=default_args,
     description='Extract and load daily sales data into PostgreSQL',
-    schedule_interval=timedelta(days=1),
+    schedule_interval=timedelta(days=-1),
     catchup=False,
 )
 
