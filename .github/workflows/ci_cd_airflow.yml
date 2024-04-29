@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main  # Workflow is triggered on a push to the "main" branch
+    paths-ignore:
+      - '.github/workflows/**'
 
 # Define jobs in the workflow
 jobs:
