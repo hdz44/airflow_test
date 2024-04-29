@@ -11,7 +11,7 @@ default_args = {
     'start_date': datetime(2024, 2, 27),
     'email_on_failure': False,
     'email_on_retry': False,
-    'retries': 81,
+    'retries': 1,
     'retry_delay': timedelta(minutes=1),
 }
 
@@ -19,7 +19,7 @@ dag = DAG(
     'sales_data_extraction',
     default_args=default_args,
     description='Extract and load daily sales data into PostgreSQL',
-    schedule_interval=timedelta(days=-1),
+    schedule_interval=timedelta(days=1),
     catchup=False,
 )
 
