@@ -26,7 +26,7 @@ dag = DAG(
 
 def generate_sales_data():
     """Generate random sales data."""
-    products = ['Product_123AAAA', 'Product_BG', 'Product_CEA']
+    products = ['Product_lol', 'Product_BG', 'Product_CEA']
     sales_data = [(random.choice(products), random.randint(
         1, 20), (datetime.now() - timedelta(days=1)).date().strftime('%Y-%m-%d'))for _ in range(10)]
     return sales_data
