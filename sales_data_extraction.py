@@ -14,7 +14,7 @@ default_args = {
     'retries': 0,
     'retry_delay': timedelta(minutes=1),
 }
-фффффффффффффффффффффффффффффффффф
+
 dag = DAG(
     'sales_data_extraction',
     default_args=default_args,
