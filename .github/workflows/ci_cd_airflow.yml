@@ -80,7 +80,7 @@ jobs:
             else
               git config --global user.email ${{ secrets.GIT_EMAIL}}
               git config --global user.name ${{ secrets.GIT_USER_NAME}}
-              git revert HEAD~1 --no-edit
+              git revert HEAD --no-edit
               git push
               echo "I reseted current commit because of fail"
               exit 1  # Exit with non-zero status to indicate failure
