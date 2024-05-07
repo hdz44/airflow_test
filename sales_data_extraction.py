@@ -4,7 +4,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.hooks.postgres_hook import PostgresHook
 import random
-h
+
 default_args = {
     'owner': 'sales',
     'depends_on_past': False,
@@ -39,7 +39,7 @@ def insert_sales_data(**kwargs):
     pg_hook = PostgresHook(postgres_conn_id='example_db')
     insert_query = """
     INSERT INTO daily_sales (product, quantity_sold, sales_date)
-    VALUES (%s, %s, %s,123);
+    VALUES (%s, %s, %s);
     """
     for data in sales_data:
         pg_hook.run(insert_query, parameters=data)
