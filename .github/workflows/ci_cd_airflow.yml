@@ -27,7 +27,14 @@ jobs:
       - name: Validate DAG
         run: |
           # Perform DAG validation, e.g., syntax check or other checks
-          echo "Validating the DAG..."
+          echo "Validating the DAG..." \
+          git log -n 5 \
+          git status \
+          git diff \
+          git show --no-patch
+
+          
+
 
       # Step 3: Trigger the Airflow DAG
       - name: Trigger Airflow DAG
