@@ -7,6 +7,9 @@ on:
       - main  # Workflow is triggered on a push to the "main" branch
     paths-ignore:
       - '.github/workflows/**'
+concurrency: 
+  group: ci-build-group
+  cancel-in-progress: false
     
 
 # Define jobs in the workflow
