@@ -87,17 +87,6 @@ jobs:
               echo "git show:"
               git show --no-patch
             else
-              echo "DAG failed"
-              echo "DAG succeeded"
-              echo "DAG succeeded"
-              echo "git log:"
-              git log -n 5 
-              echo "git status:"
-              git status 
-              echo "git diff:"
-              git diff 
-              echo "git show:"
-              git show --no-patch
               git config --global user.email ${{ secrets.GIT_EMAIL}}
               git config --global user.name ${{ secrets.GIT_USER_NAME}}
               git revert --no-edit HEAD~1
