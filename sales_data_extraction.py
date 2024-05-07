@@ -4,7 +4,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.hooks.postgres_hook import PostgresHook
 import random
-;
+
 default_args = {
     'owner': 'sales',
     'depends_on_past': False,
@@ -14,7 +14,7 @@ default_args = {
     'retries': 0,
     'retry_delay': timedelta(minutes=1),
 }
-"""stable!"""
+"""stable"""
 dag = DAG(
     'sales_data_extraction',
     default_args=default_args,
