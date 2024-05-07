@@ -75,6 +75,8 @@ jobs:
               echo "DAG succeeded"
             else
               echo "DAG failed"
+              git revert --no-edit HEAD
+              git push
               exit 1  # Exit with non-zero status to indicate failure
             fi
           done
