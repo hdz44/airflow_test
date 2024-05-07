@@ -61,7 +61,7 @@ jobs:
           until [[ "$dag_status" == "success" ]]; do
             # Pause between checks to avoid rate limiting or excessive load
             echo "Waiting for DAG to complete..."
-            sleep 60  # Wait for 60 seconds before checking again
+            sleep 10  # Wait for 60 seconds before checking again
       
             # Make the API request and update dag_status
             dag_status=$(curl -G -X GET "${{ secrets.AIRFLOW_API_URL_CHECK_DAG_STATUS }}" \
