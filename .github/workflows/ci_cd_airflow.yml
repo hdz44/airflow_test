@@ -7,7 +7,7 @@ on:
       - main  # Workflow is triggered on a push to the "main" branch
     paths-ignore:
       - '.github/workflows/**'
-    types: [opened, synchronize, reopened]
+    
 
 # Define jobs in the workflow
 jobs:
