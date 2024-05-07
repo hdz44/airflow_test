@@ -19,6 +19,8 @@ jobs:
       # Step 1: Check out the repository codebase
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 5
       
       # Step 2: Validate the DAG structure or other checks
       - name: Validate DAG
