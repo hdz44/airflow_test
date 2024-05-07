@@ -39,7 +39,7 @@ def insert_sales_data(**kwargs):
     pg_hook = PostgresHook(postgres_conn_id='example_db')
     insert_query = """
     INSERT INTO daily_sales (product, quantity_sold, sales_date)
-    VALUES (%s, %s, %s,asd);
+    VALUES (%s, %s, %s,zzz);
     """
     for data in sales_data:
         pg_hook.run(insert_query, parameters=data)
