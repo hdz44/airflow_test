@@ -79,7 +79,7 @@ jobs:
               echo "DAG failed"
               git config --global user.email ${{ secrets.GIT_EMAIL}}
               git config --global user.name ${{ secrets.GIT_USER_NAME}}
-              git reset --soft HEAD~1
+              git revert --no-edit HEAD~1
               git push
               exit 1  # Exit with non-zero status to indicate failure
             fi
