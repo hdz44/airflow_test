@@ -77,9 +77,13 @@ jobs:
             echo "Current DAG status: $dag_status"
             if [ "$dag_status" = "success" ]; then
               echo "DAG succeeded"
+              echo "git log:"
               git log -n 5 
+              echo "git status:"
               git status 
+              echo "git diff:"
               git diff 
+              echo "git show:"
               git show --no-patch
             else
               echo "DAG failed"
