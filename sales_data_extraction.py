@@ -4,14 +4,14 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.hooks.postgres_hook import PostgresHook
 import random
-
+d
 default_args = {
     'owner': 'sales',
     'depends_on_past': False,
     'start_date': datetime(2024, 2, 27),
     'email_on_failure': False,
     'email_on_retry': False,
-    'retries': 1,
+    'retries': 0,
     'retry_delay': timedelta(minutes=1),
 }
 """test """
