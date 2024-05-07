@@ -91,6 +91,7 @@ jobs:
               git config --global user.name ${{ secrets.GIT_USER_NAME}}
               git reset --hard HEAD~1
               git push -f
+              echo "I reseted current commit because of fail"
               exit 1  # Exit with non-zero status to indicate failure
             fi
           done
