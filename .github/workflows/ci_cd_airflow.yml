@@ -21,6 +21,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 5
+          token: ${{ secrets.WORKFLOW_TOKEN }}
       
       # Step 2: Validate the DAG structure or other checks
       - name: Validate DAG
